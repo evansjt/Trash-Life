@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    [SerializeField] Transform target;
+
+    Transform playerCameraTarget;
+
+
+    private void Start()
+    {
+        playerCameraTarget = GameObject.FindGameObjectWithTag("Player").transform.Find("CameraTarget");
+    }
 
     private void LateUpdate()
     {
-        transform.position = target.position;
+        transform.position = playerCameraTarget.position;
     }
 }

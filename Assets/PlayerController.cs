@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float walkSpeed = 5f;
+    [SerializeField] float rotationSpeed = 7f;
+    Camera mainCam;
     [SerializeField] float sprintSpeed = 10f;
-    [SerializeField] float jumpForce = 5f;
+    [SerializeField] float jumpForce = 15f;
 
     [SerializeField] Transform groundCheck;
 
     [SerializeField] LayerMask whatIsGround;
 
-    [SerializeField] float grav = 1f;
+    [SerializeField] float grav = 25f;
+
+    bool justJumped = false;
 
     CharacterController controller;
 
-    Vector3 moveDir;
+    Vector2 inputs;
+    Vector3 movement;
 
     public bool isGrounded = false;
 
@@ -27,31 +32,47 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
     }
 
+    private void Start()
+    {
+        mainCam = Camera.main;
+    }
+
     private void Update()
     {
-        UpdateRotation();
-        HandleGroundCollision();
-        HandleGravity();
-        HandleJump();
+        GetMovementInputs();
+        ApplyGravity();
+        CheckGroundCollision();
+        HandleJumpInput();
         HandleMovement();
     }
 
-    private void HandleGravity()
+    private void GetMovementInputs()
     {
-        if(!isGrounded)
-        {
-            moveDir.y -= grav;
-        }
+        inputs.x = Input.GetAxis("Horizontal");
+        inputs.y = Input.GetAxis("Vertical");
     }
 
-    private void HandleGroundCollision()
+    private void ApplyGravity()
     {
+        movement.y -= (grav * Time.deltaTime);
+    }
+
+    private void CheckGroundCollision()
+    {
+        if (justJumped)
+        {
+            isGrounded = false;
+            justJumped = false;
+            return;
+        }
+
         Collider[] colliders = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, whatIsGround);
 
+        
         if(colliders.Length > 0)
         {
             isGrounded = true;
-            moveDir.y = 0f;
+            movement.y = 0f;
         } else
         {
             isGrounded = false;
@@ -60,48 +81,39 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void HandleJump()
+    private void HandleJumpInput()
     {
         float val = Input.GetAxis("Jump");
         if ((val > 0f) && isGrounded)
         {
-            moveDir.y = jumpForce;
+            movement.y = jumpForce;
+            justJumped = true;
         }
         
     }
 
     private void HandleMovement()
     {
-        float xAxis = Input.GetAxis("Horizontal");
-        float zAxis = Input.GetAxis("Vertical");
+        Vector2 dir2D = inputs.normalized;
 
-        Vector3 movement = (transform.forward * zAxis) + (transform.right * xAxis);
-
-        RaycastHit hitInformation;
-
-        Physics.SphereCast(transform.position, controller.radius, Vector3.down, out hitInformation, (controller.height / 2f));
-
-        movement = Vector3.ProjectOnPlane(movement, hitInformation.normal).normalized;
+        Vector3 dir3D = mainCam.transform.forward * dir2D.y + mainCam.transform.right * dir2D.x;
+        Vector3 dir = new Vector3(dir3D.x, 0f, dir3D.z).normalized;
 
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            moveDir.x = movement.x * sprintSpeed;
-            moveDir.z = movement.z * sprintSpeed;
+            movement.x = (dir3D.x * sprintSpeed);
+            movement.z = (dir3D.z * sprintSpeed);
         } else
         {
-            moveDir.x = movement.x * moveSpeed;
-            moveDir.z = movement.z * moveSpeed;
+            movement.x = (dir3D.x * walkSpeed);
+            movement.z = (dir3D.z * walkSpeed);
         }
-        
 
-        controller.Move(moveDir * Time.deltaTime);
-    }
+        if(inputs != Vector2.zero)
+        {
+            transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotationSpeed);
+        }
 
-    private void UpdateRotation()
-    {
-        Vector3 val = Camera.main.transform.parent.forward;
-
-        transform.forward = val;
-
+        controller.Move(movement * Time.deltaTime);
     }
 }

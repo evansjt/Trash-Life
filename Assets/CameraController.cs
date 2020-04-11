@@ -4,41 +4,42 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] float mouseSens = 7f;
+
+    [SerializeField] float minYRotation = -20f;
+    [SerializeField] float maxYRotation = 70f;
+
+    [SerializeField] float cameraDistance = 5f;
+
     Transform pivot;
 
-    [SerializeField] float rotationSpeed = 3f;
+    float xRotation;
+    float yRotation;
 
-    float prevXMousePosition;
-
-    float currentYRotation;
-
-    bool previouslyPressed = false;
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     private void Awake()
     {
         pivot = transform.parent;
-        currentYRotation = 0f;
+        
     }
 
-    private void Update()
+
+    private void LateUpdate()
     {
-        if (Input.GetMouseButton(1))
-        {
-            if(!previouslyPressed)
-            {
-                prevXMousePosition = Input.mousePosition.x;
-                previouslyPressed = true;
-                
-            }
-            float mousePos = Input.mousePosition.x;
-            float delta = mousePos - prevXMousePosition;
-            pivot.localRotation = Quaternion.Euler(0f, (pivot.localRotation.y + (delta*rotationSpeed)), 0f);
+        //if (!Input.GetMouseButton(1)) return;         If this is uncommented, then the player must press the mouse button in order to move the camera
 
-        } else
-        {
-            previouslyPressed = false;
-        }
+        xRotation += Input.GetAxis("Mouse X") * mouseSens;
+        yRotation -= Input.GetAxis("Mouse Y") * mouseSens;
 
-        
+        yRotation = Mathf.Clamp(yRotation, minYRotation, maxYRotation);
+
+        pivot.rotation = Quaternion.Euler(yRotation, xRotation, 0f);
+
+        transform.position = (pivot.position - (transform.forward * cameraDistance));
     }
 }
