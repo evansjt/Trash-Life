@@ -63,10 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CameraController.cs" />
-    <Compile Include="Assets\EnemyAI.cs" />
-    <Compile Include="Assets\FollowCamera.cs" />
-    <Compile Include="Assets\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI.cs" />
+    <Compile Include="Assets\Scripts\FollowCamera.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <None Include="Assets\AssetPacks\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Alex/Desktop/CSSE352/Trash-Life/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
