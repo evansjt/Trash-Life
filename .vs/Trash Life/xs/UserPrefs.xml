@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{608C48DC-7CFE-3403-17DC-5CDB0C4016E9}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Library/PackageCache/com.unity.test-framework@1.1.13/UnityEngine.TestRunner/TestRunner/PlaymodeTestsControllerSettings.cs">
+    <Files>
+      <File FileName="Library/PackageCache/com.unity.test-framework@1.1.13/UnityEngine.TestRunner/TestRunner/PlaymodeTestsControllerSettings.cs" Line="37" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Trash Life" expanded="True">
+            <Node name="Assets" expanded="True" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="14f11075-cecd-4748-af47-415ed5974755" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
