@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 5453120851932604929}
   - component: {fileID: 5453120851932604934}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: RotationCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,6 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSens: 7
-  minYRotation: -20
+  minYRotation: -5
   maxYRotation: 70
   cameraDistance: 5
