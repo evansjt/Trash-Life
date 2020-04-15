@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     bool justJumped = false;
 
     CharacterController controller;
+    Animator animator;
 
     Vector2 inputs;
     Vector3 movement;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -110,7 +112,11 @@ public class PlayerController : MonoBehaviour
 
         if(inputs != Vector2.zero)
         {
+            animator.SetTrigger("StartWalking");
             transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotationSpeed);
+        } else
+        {
+            animator.SetTrigger("StopWalking");
         }
 
         controller.Move(movement * Time.deltaTime);
