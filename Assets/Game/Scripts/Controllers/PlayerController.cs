@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : GameCharacterController
 {
     [SerializeField] float walkSpeed = 5f;
     [SerializeField] float rotationSpeed = 7f;
@@ -19,19 +19,19 @@ public class PlayerController : MonoBehaviour
     bool justJumped = false;
 
     CharacterController controller;
-    Animator animator;
+    //Animator animator;
 
     Vector2 inputs;
     Vector3 movement;
 
-    public bool isGrounded = false;
+    public bool isGrounded = true;
 
     [SerializeField] float groundCheckRadius = 0.15f;
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -82,10 +82,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public override void Die()
+    {
+        GetComponent<PlayerFighter>().enabled = false;
+
+        base.Die();
+    }
+
     private void HandleJumpInput()
     {
         float val = Input.GetAxis("Jump");
-        if ((val > 0f) && isGrounded)
+        if (!Mathf.Approximately(val, 0f) && isGrounded)
         {
             movement.y = jumpForce;
             justJumped = true;
@@ -112,11 +119,11 @@ public class PlayerController : MonoBehaviour
 
         if(inputs != Vector2.zero)
         {
-            animator.SetTrigger("StartWalking");
+            //animator.SetTrigger("StartWalking");
             transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotationSpeed);
         } else
         {
-            animator.SetTrigger("StopWalking");
+           // animator.SetTrigger("StopWalking");
         }
 
         controller.Move(movement * Time.deltaTime);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : GameCharacterController
 {
     Transform playerTransform;
 
@@ -108,7 +108,7 @@ public class EnemyAI : MonoBehaviour
         return (navMeshAgent.remainingDistance <= (navMeshAgent.stoppingDistance + stoppingThreshold));
     }
 
-    private float CalculateDistanceToPlayer()
+    public float CalculateDistanceToPlayer()
     {
         if (playerTransform == null) return Mathf.Infinity;
 
@@ -123,5 +123,18 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, escapeDistance);
 
+    }
+
+    public bool IsProvoked()
+    {
+        return state == State.Provoked;
+    }
+
+    public override void Die()
+    {
+        navMeshAgent.enabled = false;
+        GetComponent<EnemyFighter>().enabled = false;
+
+        base.Die();
     }
 }
