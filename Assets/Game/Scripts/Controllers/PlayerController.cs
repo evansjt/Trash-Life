@@ -26,6 +26,8 @@ public class PlayerController : GameCharacterController
 
     public bool isGrounded = true;
 
+    public bool isFalling = false;
+
     [SerializeField] float groundCheckRadius = 0.15f;
 
     private void Awake()
@@ -56,6 +58,12 @@ public class PlayerController : GameCharacterController
 
     private void ApplyGravity()
     {
+        if (movement.y < 0 && !isFalling)
+        {
+            isFalling = true;
+            animator.SetBool("Fall", true);
+        }
+
         movement.y -= (grav * Time.deltaTime);
     }
 
@@ -74,6 +82,13 @@ public class PlayerController : GameCharacterController
         {
             isGrounded = true;
             movement.y = 0f;
+
+            if (isFalling)
+            {
+                animator.SetBool("Fall", false);
+                isFalling = false;
+            }
+
         } else
         {
             isGrounded = false;
@@ -95,7 +110,7 @@ public class PlayerController : GameCharacterController
         {
             movement.y = jumpForce;
             justJumped = true;
-            animator.SetTrigger("HeroJump");
+            animator.SetTrigger("Jump");
         }
         
     }
@@ -117,18 +132,21 @@ public class PlayerController : GameCharacterController
             movement.z = (dir3D.z * walkSpeed);
         }
 
-        if(inputs != Vector2.zero)
+        if(Mathf.Approximately(movement.y, 0f))
         {
-            animator.SetTrigger("StartWalking");
-            transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotationSpeed);
-        } else
-        {
-            animator.SetTrigger("StopWalking");
+            if (inputs != Vector2.zero)
+            {
+                animator.SetTrigger("Walk");
+            }
+            else
+            {
+                animator.SetTrigger("Idle");
+            }
         }
 
-        if (movement.y == 0 && isGrounded)
+        if(inputs != Vector2.zero)
         {
-            animator.SetTrigger("EndFall");
+            transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotationSpeed);
         }
 
         controller.Move(movement * Time.deltaTime);
