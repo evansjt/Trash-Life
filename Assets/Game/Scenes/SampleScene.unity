@@ -122,6 +122,31 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: c18da076cc01fbf4da852ab1d6aa6edb, type: 2}
+--- !u!1 &300374219 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1473513693311268407, guid: ae9285295a374ed47ab77006940d7c28,
+    type: 3}
+  m_PrefabInstance: {fileID: 4547941051093945552}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &300374227
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300374219}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 77cf469cbacf249609a50347d941bdb1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,6 +308,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Core
       objectReference: {fileID: 0}
+    - target: {fileID: 4547941050134962597, guid: ae9285295a374ed47ab77006940d7c28,
+        type: 3}
+      propertyPath: cameraDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6949616173523502430, guid: ae9285295a374ed47ab77006940d7c28,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -338,7 +368,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8820084935864779136, guid: ae9285295a374ed47ab77006940d7c28,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820084935864779136, guid: ae9285295a374ed47ab77006940d7c28,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820084935864779136, guid: ae9285295a374ed47ab77006940d7c28,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2068367251, guid: ae9285295a374ed47ab77006940d7c28, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ae9285295a374ed47ab77006940d7c28, type: 3}
 --- !u!1001 &7595769986147231265
 PrefabInstance:

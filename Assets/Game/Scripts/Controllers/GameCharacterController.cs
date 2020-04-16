@@ -7,8 +7,7 @@ public class GameCharacterController : MonoBehaviour
     
     public virtual void Die()
     {
-        //GetComponent<Animator>().SetTrigger("Die");
-
+        GetComponent<Animator>().SetTrigger("Die");
         enabled = false;
     }
 

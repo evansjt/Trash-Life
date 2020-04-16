@@ -31,7 +31,7 @@ public class PlayerController : GameCharacterController
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
-        animator = transform.Find("Hero").gameObject.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -85,7 +85,6 @@ public class PlayerController : GameCharacterController
     public override void Die()
     {
         GetComponent<PlayerFighter>().enabled = false;
-        animator.SetTrigger("KillHero");
         base.Die();
     }
 
@@ -96,6 +95,7 @@ public class PlayerController : GameCharacterController
         {
             movement.y = jumpForce;
             justJumped = true;
+            animator.SetTrigger("HeroJump");
         }
         
     }
@@ -124,6 +124,11 @@ public class PlayerController : GameCharacterController
         } else
         {
             animator.SetTrigger("StopWalking");
+        }
+
+        if (movement.y == 0 && isGrounded)
+        {
+            animator.SetTrigger("EndFall");
         }
 
         controller.Move(movement * Time.deltaTime);
