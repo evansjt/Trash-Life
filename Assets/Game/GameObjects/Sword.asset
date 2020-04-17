@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectPrefab: {fileID: 1450162926576726052, guid: d50a880743dff2b4381b645378067c91,
     type: 3}
-  damage: 50
+  damage: 25
   recoveryTime: 2
   attackRange: 2
   projectileObject: {fileID: 0}

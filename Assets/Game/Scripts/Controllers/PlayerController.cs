@@ -99,6 +99,7 @@ public class PlayerController : GameCharacterController
     public override void Die()
     {
         GetComponent<PlayerFighter>().enabled = false;
+        Camera.main.GetComponent<CameraController>().PlayerDeath();
         base.Die();
     }
 

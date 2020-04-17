@@ -42,4 +42,11 @@ public class CameraController : MonoBehaviour
 
         transform.position = (pivot.position - (transform.forward * cameraDistance));
     }
+
+    public void PlayerDeath()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        enabled = false;
+    }
 }
