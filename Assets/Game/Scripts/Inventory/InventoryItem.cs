@@ -8,13 +8,17 @@ public class InventoryItem : ScriptableObject
     [SerializeField] GameObject objectPrefab;
     [SerializeField] float damage = -1f;
     [SerializeField] float recoveryTime = -1f;
+    [SerializeField] float attackRange = -1f;
     [SerializeField] GameObject projectileObject;
     [SerializeField] GameObject particleSystem;
     [SerializeField] bool isRightHanded = true;
+    [SerializeField] bool isWeapon = true;
+
+    [SerializeField] string itemName = "Default Name";
 
     [SerializeField] AnimatorOverrideController overrideController;
 
-    void SpawnObject(Transform rightHand, Transform leftHand, Animator animator)
+    public void SpawnObject(Transform rightHand, Transform leftHand, Animator animator)
     {
         Transform hand;
         hand = GetHand(rightHand, leftHand);
@@ -25,7 +29,7 @@ public class InventoryItem : ScriptableObject
         if(objectPrefab != null)
         {
             GameObject spawnedWeapon = Instantiate(objectPrefab, hand);
-            spawnedWeapon.name = "Weapon";
+            spawnedWeapon.name = "Item";
         }
 
         HandleAnimatorOverride(animator);
@@ -49,10 +53,10 @@ public class InventoryItem : ScriptableObject
     void DestroyOldWeapon(Transform rightHand, Transform leftHand)
     {
         Transform oldWeapon;
-        oldWeapon = rightHand.Find("Weapon");
+        oldWeapon = rightHand.Find("Item");
         if(oldWeapon == null)
         {
-            oldWeapon = leftHand.Find("Weapon");
+            oldWeapon = leftHand.Find("Item");
         }
         if (oldWeapon == null) return;
 
@@ -74,6 +78,11 @@ public class InventoryItem : ScriptableObject
         // Projectile Firing Code Here
     }
 
+    public float GetAttackRange()
+    {
+        return attackRange;
+    }
+
     public float GetDamage()
     {
         return damage;
@@ -87,6 +96,16 @@ public class InventoryItem : ScriptableObject
     public bool HasProjectile()
     {
         return (projectileObject != null);
+    }
+
+    public bool IsWeapon()
+    {
+        return isWeapon;
+    }
+
+    public string GetItemName()
+    {
+        return itemName;
     }
 
 }

@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class GameCharacterController : MonoBehaviour
 {
+
+    protected Animator animator;
     
+    public virtual void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     public virtual void Die()
     {
-        GetComponent<Animator>().SetTrigger("Die");
+        if(animator != null) // REMOVE IF STATEMENT LATER
+        {
+            animator.SetTrigger("Die");
+        }
+        
         enabled = false;
     }
 

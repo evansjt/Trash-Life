@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : GameCharacterController
+public class EnemyAI : AIController
 {
-    Transform playerTransform;
 
     [SerializeField] float moveSpeed = 3f;
     [SerializeField] float viewingDistance = 10f;
@@ -15,9 +14,6 @@ public class EnemyAI : GameCharacterController
     float currentSearchTimer = 0f;
 
     Vector3 lastKnownPlayerLocation;
-
-    NavMeshAgent navMeshAgent;
-    [SerializeField] float stoppingThreshold = 0.1f;
 
     Vector3 guardPositon;
 
@@ -34,9 +30,8 @@ public class EnemyAI : GameCharacterController
     private void Start()
     {
         state = State.Idle;
-        navMeshAgent = GetComponent<NavMeshAgent>();
 
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        base.Start();
 
         guardPositon = transform.position;
     }
@@ -60,7 +55,7 @@ public class EnemyAI : GameCharacterController
         state = State.Provoked;
         lastKnownPlayerLocation = playerTransform.position;
         navMeshAgent.destination = playerTransform.position;
-
+        FaceTarget();
         currentSearchTimer = 0f;
     }
 
@@ -103,18 +98,6 @@ public class EnemyAI : GameCharacterController
         }
     }
 
-    private bool HasReachedDestination()
-    {
-        return (navMeshAgent.remainingDistance <= (navMeshAgent.stoppingDistance + stoppingThreshold));
-    }
-
-    public float CalculateDistanceToPlayer()
-    {
-        if (playerTransform == null) return Mathf.Infinity;
-
-        return Vector3.Distance(transform.position, playerTransform.position);
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -132,7 +115,6 @@ public class EnemyAI : GameCharacterController
 
     public override void Die()
     {
-        navMeshAgent.enabled = false;
         GetComponent<EnemyFighter>().enabled = false;
 
         base.Die();
