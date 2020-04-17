@@ -52,7 +52,7 @@ NavMeshAgent:
   m_Acceleration: 50
   avoidancePriority: 50
   m_AngularSpeed: 900
-  m_StoppingDistance: 3
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -75,6 +75,7 @@ MonoBehaviour:
   moveSpeed: 3
   viewingDistance: 10
   escapeDistance: 15
+  spinSpeed: 15
   searchTime: 5
   stoppingThreshold: 0.1
 --- !u!114 &6794478792560577369

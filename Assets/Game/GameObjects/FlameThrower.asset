@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e5ed9b5446a8648bb5f9b1108e4666, type: 3}
   m_Name: FlameThrower
   m_EditorClassIdentifier: 
-  objectPrefab: {fileID: 0}
-  damage: -1
-  recoveryTime: -1
+  objectPrefab: {fileID: 1450162926576726052, guid: d50a880743dff2b4381b645378067c91,
+    type: 3}
+  damage: 10
+  recoveryTime: 0.5
+  attackRange: 5
   projectileObject: {fileID: 0}
   particleSystem: {fileID: 0}
   isRightHanded: 1
+  isWeapon: 1
+  itemName: Flame Thrower
   overrideController: {fileID: 0}

@@ -4,9 +4,23 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] Transform rightHand;
+    [SerializeField] Transform leftHand;
+
     public List<InventoryItem> inventoryItems = new List<InventoryItem>();
 
+    InventoryItem currentItem;
+
     int currentInventoryIndex = 0;
+
+    private void Start()
+    {
+        if(inventoryItems.Count != 0)
+        {
+            currentItem = inventoryItems[currentInventoryIndex];
+            currentItem.SpawnObject(rightHand, leftHand, GetComponent<Animator>());
+        }
+    }
 
     private void Update()
     {
@@ -15,6 +29,8 @@ public class Inventory : MonoBehaviour
 
     void HandleScrollWheel()
     {
+        if (inventoryItems.Count == 0) return;
+
         float val = Input.GetAxis("Mouse ScrollWheel");
 
         if(val < 0f)
@@ -24,7 +40,6 @@ public class Inventory : MonoBehaviour
             {
                 currentInventoryIndex = 0;
             }
-            print(currentInventoryIndex);
         } else if (val > 0f)
         {
             currentInventoryIndex--;
@@ -32,7 +47,18 @@ public class Inventory : MonoBehaviour
             {
                 currentInventoryIndex = inventoryItems.Count - 1;
             }
-            print(currentInventoryIndex);
         }
+
+        if(!Mathf.Approximately(val, 0f))
+        {
+            currentItem = inventoryItems[currentInventoryIndex];
+            currentItem.SpawnObject(rightHand, leftHand, GetComponent<Animator>());
+            print(currentItem.GetItemName());
+        }
+    }
+
+    public InventoryItem GetItem()
+    {
+        return currentItem;
     }
 }

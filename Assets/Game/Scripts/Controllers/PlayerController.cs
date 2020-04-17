@@ -19,7 +19,6 @@ public class PlayerController : GameCharacterController
     bool justJumped = false;
 
     CharacterController controller;
-    Animator animator;
 
     Vector2 inputs;
     Vector3 movement;
@@ -33,11 +32,11 @@ public class PlayerController : GameCharacterController
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
     }
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         mainCam = Camera.main;
     }
 
